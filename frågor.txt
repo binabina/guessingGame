@@ -1,0 +1,78 @@
+Jag satsar på VG.
+
+Vad är pull repektive push?
+Pull är när man hämtar ändringar från en extern repository till sin lokala dator. 
+Push är tvärtom att man istället skickar sina ändringar från sin lokala dator till ett externt repository 
+som tex Github som jag använt i denna uppgift.
+ 
+När använder man log respektive status?
+Git status använder man för att kunna se vilka filer som är ändrade och vad som finns i staging area.
+Alltså vad som behöver commitas.
+Git log använder man för att se historiken över alla commits och ändringar som gjorts.
+
+Vad är en Git branch och varför är de viktiga?
+En branch är som ett träd en avgrening från stammen som vi kan jämföra med main. Med brancher kan vi göra
+ändringar i main utan att vara i projektet och göra ändringar direkt. På så vis har man hela tiden original 
+projektet till hands. Dessutom om man samarbetar med andra är förgrening/brancher till stor nytta så alla 
+kan var för sig göra ändringar sen slå ihop. istället för att alla är på samma ställe och gör ändringar. 
+
+
+Det finns flera sätt att rulla tillbaka koden till ett tidigare tillstånd. Förklara skillnaden och motivera 
+när man skulle använda den ena eller andra metoden. Ge exempel på de kommandon du använder för att göra detta 
+och vissa att det fungerar, vilken output du fick från git-kommandona.
+Tips: Gör exemplen med att backa i en branch så att master fortfarande är korrekt.
+ 
+Det finns git- 
+-reset
+Om man vill ångra commits genom att ändra historiken. 
+Finns 3 typer soft, mixed och hard.
+Soft allt behålls med HEAD flyttas dit man vill.
+Mixed tar bort i staging men behåller filer.
+Hard måste man använda med stor försiktighet då den tar bort ändringar helt. Bäst att använda lokalt eller om 
+man arbeta ensamt på projekt.
+"Rulla tillbaka koden till ett tidigare tillstånd"
+Med kommando: git reset --soft HEAD~1
+              git reset --mixed HEAD~1
+              git reset --hard HEAD~1
+
+-restore
+Om man vill återställa filer till senaste version utan att påverka historiken.
+
+"Rulla tillbaka koden till ett tidigare tillstånd"
+Med kommando: git restore NamnPåFil.txt 
+              git restore --source=HEAD~1 NamnPåFil.txt
+
+-revert
+Om man säkert vill ångra ändringar genom att skapa ny commit. En säker metod som man kan använda vid gemensamma 
+projekt då den inte påverkar historiken.
+
+"Rulla tillbaka koden till ett tidigare tillstånd"
+Med kommando: git revert 1a2b3c4
+
+Beskriv och jämför hur man kan använda git rebase och git merge i ett scenario där flera utvecklare jobbar på olika 
+feature branches. Diskutera fördelarna och nackdelarna med båda teknikerna, samt hur de påverkar historiken.
+Uppgift: Skapa ett repo med två eller fler feature branches som utvecklare arbetar på. Beskriv hur du löser konflikter
+som uppstår under rebase och merge och visa slutresultatet i historiken.
+Exempel: Använd kommandon som git rebase, git merge för att illustrera skillnaderna.
+Motivering: Förklara varför rebase ibland används i stället för merge för att hålla en renare historik och när merge 
+är att föredra för att bibehålla kontext mellan commits.
+
+
+Om man jobbar i ett projekt med flera utvecklare kan man lägga ihop ändringar på 2 sätt med merge och rebase. 
+
+Med merge kan man kombinera en branch med en annan och bevarar hela historiken. Vilket är positivt då man kan följa 
+historiken exakt men nackdelen med detta är att det kan se rörigt ut.  
+
+Med rebase flyttas commitsen från en branch och läggs ovanpå en annan. Detta gör att historiken blir mer ren och tydlig.
+Det finns risk att historiken ändras vilken skapar problem om någon annan har baserat sina ändringar på samma branch. 
+
+Uppstår konflikt med git rebase NamnPå-branch löser man det manuellt genom att kolla på de konfliktade filerna och bestämmer 
+vad man vill behålla och inte. Därefter fortsätter man med git add NamnpåFil sen git rebase --continue
+
+Uppstår konflikter med git merge NamnPå-branch kan det bland annat bero på att två branches har ändrats på samma rad i en fil. 
+Detta kan man lösa med öppna filen och välja den version man vill behålla, ta bort merge-markeringar. Spara och add och committa 
+som vanligt.
+
+Sammanfattningsvis om man vill ha en renare och linjär historik använder man med fördel rebase. Med den kan man lättare följa 
+projektets utveckling. Om man vill kunna se all historik och hur brancherna betett sig använder man merge. Merge kan också vara 
+säkrare om man är fler som arbetar tillsammans på samma repository. 
